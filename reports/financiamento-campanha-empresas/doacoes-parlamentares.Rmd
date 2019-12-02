@@ -29,7 +29,7 @@ library(reactable)
 library(htmltools)
 library(purrr)
 
-source(here("reports/atividades-economicas-doacoes/utils.R"))
+source(here("reports/financiamento-campanha-empresas/utils.R"))
 source(here("parlametria/processor/empresas/processa_parlamentares_info_eleicao.R"))
 
 theme_set(theme_minimal())
@@ -687,113 +687,6 @@ lista_partidos_senado <- doacoes_sumario_partido_senado %>%
 plot_financiamento_por_partido(doacoes_sumario_partido_senado, lista_partidos_senado, 
                                "Participação na campanha de senadores \npor partido e setor econômico",
                                "senado")
-```
-
-## Distribuição da média de participação em campanhas por comissão
-
-A seguir visualizaremos a média de participação em campanhas dos principais setores econômicos por comissão permanente.
-
-```{r}
-comissoes <- read_csv(here("crawler/raw_data/comissoes.csv")) %>%
-  rename(comissao_id = id)
-
-composicao_comissoes <- read_csv(here("crawler/raw_data/composicao_comissoes.csv"),
-                                 col_types = cols(id_parlamentar = "c"))
-
-composicao_comissoes <- composicao_comissoes %>%
-  filter(situacao == "Titular") %>%
-  left_join(comissoes %>%
-              select(comissao_id, casa, sigla),
-            by = c("comissao_id", "casa"))
-```
-
-### Para deputados
-
-Foram selecionadas 8 comissões na Câmara para análise:
-
- - CCJC: Comissão De Constituição E Justiça E De Cidadania
- - CMADS: Comissão De Meio Ambiente E Desenvolvimento Sustentável
- - CFT: Comissão De Finanças E Tributação
- - CDHM: Comissão De Direitos Humanos E Minorias	
- - CVT: Comissão De Viação E Transportes	
- - CMULHER: Comissão De Defesa Dos Direitos Da Mulher	
- - CINDRA: Comissão De Integração Nacional, Desenvolvimento Regional E Da Amazônia	
- - CE: Comissão de Educação
- - CTASP: Comissão De Trabalho, De Administração E Serviço Público	
- - CME: Comissão De Minas E Energia	
-  
-
-```{r}
-comissoes_selecionadas <- c("CCJC", "CMADS", "CFT", "CDHM", "CVT", "CMULHER", "CINDRA", "CE", "CTASP", "CME")
-
-composicao_comissoes_camara <- composicao_comissoes %>% 
-  filter(sigla %in% comissoes_selecionadas)
-
-doacoes_sumario_comissoes_camara <- doacoes_sumario_alt_camara %>% 
-  filter(grupo_atividade_economica_raw %in% categorias_economicas_camara) %>%
-  left_join(composicao_comissoes_camara, by = c("id_parlamentar", "casa")) %>% 
-  filter(!is.na(sigla)) %>% 
-  group_by(sigla, grupo_atividade_economica) %>% 
-  summarise(mean = mean(proporcao_doacao)) %>% 
-  ungroup()
-```
-
-```{r fig.height=10}
-plot_financiamento_por_comissao <- function(data, title) {
-  ggplot(data, aes(x = reorder(grupo_atividade_economica, mean, sum), y = mean)) + 
-  facet_rep_wrap(~ sigla, ncol = 2,
-             repeat.tick.labels = c("bottom", "right")) +
-  geom_point(data = select(data, -sigla), color = "#987284", alpha = .5) + 
-  geom_point(data = data, color = "black", size = 2) +
-  coord_flip() + 
-  scale_y_continuous(labels = scales::percent_format(accuracy = 2)) +
-  labs(x = "", 
-       y = "Média da participação em campanha (%)", 
-       title = title) +
-  guides(fill = F) +
-  theme_ipsum_rc()
-}
-```
-
-```{r fig.height=12}
-plot_financiamento_por_comissao(doacoes_sumario_comissoes_camara, "Participação na campanha de deputados \npor comissão e setor econômico")
-```
-
-### Para Senadores
-
-As Comissões permanentes escolhidas para o Senado para a análise:
-
- - CCJ: Comissão De Constituição, Justiça E Cidadania	
- - CDH: Comissão De Direitos Humanos E Legislação Participativa	
- - CMA: Comissão De Meio Ambiente	
- - CRA: Comissão De Agricultura E Reforma Agrária	
- - CRE: Comissão De Relações Exteriores E Defesa Nacional	
- - CTFC: Comissão De Transparência, Governança, Fiscalização E Controle E Defesa Do Consumidor	
- - CI: Comissão De Serviços De Infraestrutura	
- - CE: Comissão De Educação, Cultura E Esporte	
-
-```{r}
-comissoes_selecionadas_senado <- c("CCJ", "CDH", "CMA", "CRA", "CRE", "CTFC", "CI", "CE")
-
-composicao_comissoes_senado <- composicao_comissoes %>% 
-  filter(sigla %in% comissoes_selecionadas_senado)
-
-doacoes_sumario_comissoes_senado <- doacoes_sumario_alt_senado %>% 
-  filter(grupo_atividade_economica_raw %in% categorias_economicas_senado) %>%
-  left_join(composicao_comissoes_senado, by = c("id_parlamentar", "casa")) %>% 
-  filter(!is.na(sigla)) %>% 
-  group_by(sigla, grupo_atividade_economica) %>% 
-  summarise(mean = mean(proporcao_doacao)) %>% 
-  ungroup()
-
-```
-
-```{r fig.height=10}
-plot_financiamento_por_comissao(doacoes_sumario_comissoes_senado, "Participação na campanha de senadores \npor comissão e setor econômico")
-```
-```{r}
-doacoes_grupos_filtrados_camara <- doacoes_sumario_alt_camara %>%
-  filter(grupo_atividade_economica_raw %in% categorias_economicas_camara)
 ```
 
 ### Deputados que receberam mais proporcionalmente de setores econômicos
