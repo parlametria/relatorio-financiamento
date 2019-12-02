@@ -81,7 +81,7 @@ fetch_dados_empresa_por_cnpj <- function(cnpj) {
 #' @param somente_agricolas Flag para indicar se o filtro de agrícolas deve ser aplicado
 #' @return Dataframe com informações dos sócios e das empresas
 fetch_empresas <- function(
-  empresas_socios = readr::read_csv(here::here("parlametria/raw_data/empresas/empresas_doadores.csv")),
+  empresas_socios = readr::read_csv(here::here("raw_data/empresas/empresas_doadores.csv")),
   somente_agricolas = FALSE) {
   library(tidyverse)
   library(here)

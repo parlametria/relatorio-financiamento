@@ -5,11 +5,11 @@
 #' @param somente_agricolas Flag para indicar se deve filtrar as empresas agrícolas ou não
 #' @return Dataframe com informações dos sócios e das empresas agrícolas
 fetch_socios_empresas_parlamentares <- function(
-  empresas_deputados = here::here("parlametria/raw_data/empresas/empresas_parlamentares.csv"),
+  empresas_deputados = here::here("raw_data/empresas/empresas_parlamentares.csv"),
   somente_agricolas = FALSE) {
   library(tidyverse)
   
-  source(here::here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here::here("crawler/empresas/fetcher_empresas.R"))
   
   empresas_socios_agricolas <- 
     fetch_empresas(empresas_deputados, 

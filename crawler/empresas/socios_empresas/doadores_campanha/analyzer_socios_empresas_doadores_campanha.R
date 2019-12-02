@@ -11,8 +11,8 @@ processa_socios_empresas_doadores <- function(
   parlamentares_datapath = here::here("crawler/raw_data/parlamentares.csv")) {
   
   library(tidyverse)
-  source(here::here("parlametria/crawler/empresas/process_empresas_exportadoras.R"))
-  source(here::here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here::here("crawler/empresas/process_empresas_exportadoras.R"))
+  source(here::here("crawler/empresas/fetcher_empresas.R"))
   
   empresas_doadores <- fetch_empresas(socios_empresas_doadores)
   
@@ -54,14 +54,14 @@ processa_socios_empresas_doadores <- function(
 #' @return Dataframe com mais dados sobre os deputados, valor doado e se a empresa é exportadora
 #' @example process_socios_empresas_doadores()
 process_empresas_doadores <- function(
-  empresas_doadores = readr::read_csv(here::here("parlametria/raw_data/empresas/somente_empresas_agricolas_2014.csv"),
+  empresas_doadores = readr::read_csv(here::here("raw_data/empresas/somente_empresas_agricolas_2014.csv"),
                                       col_types = readr::cols(.default = "c")),
   ano = 2014) {
   library(tidyverse)
   library(here)
   
-  source(here("parlametria/crawler/receitas/analyzer_receitas_tse.R"))
-  source(here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here("crawler/receitas/analyzer_receitas_tse.R"))
+  source(here("crawler/empresas/fetcher_empresas.R"))
   
   parlamentares_doacoes <- processa_doacoes_parlamentares_tse(ano) %>% 
     filter(casa == "camara") %>% 
@@ -109,19 +109,19 @@ process_empresas_doadores <- function(
 #' @return Lista de dataframes com informações processadas dos sócios e das respectivas empresas.
 #' @example processa_empresas_doadores()
 processa_empresas_doadores <- function(
-  doadores_folderpath = here::here("parlametria/raw_data/receitas/parlamentares_doadores.csv"),
-  socios_folderpath = here::here("parlametria/raw_data/empresas/socio.csv.gz"),
+  doadores_folderpath = here::here("raw_data/receitas/parlamentares_doadores.csv"),
+  socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
   ano = 2018,
   fragmentado = TRUE) {
   library(tidyverse)
-  source(here::here("parlametria/crawler/empresas/socios_empresas/doadores_campanha/fetcher_socios_empresas_doadores_campanha.R"))
-  source(here::here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here::here("crawler/empresas/socios_empresas/doadores_campanha/fetcher_socios_empresas_doadores_campanha.R"))
+  source(here::here("crawler/empresas/fetcher_empresas.R"))
   
   socios_empresas_doadores <-
     filter_socios_empresas_doadores(socios_folderpath, doadores_folderpath)
   
   if (isTRUE(fragmentado)) {
-    source(here("parlametria/crawler/empresas/socios_empresas/doadores_campanha/paraleliza_fetcher_socios_empresas_doadores_campanha.R"))
+    source(here("crawler/empresas/socios_empresas/doadores_campanha/paraleliza_fetcher_socios_empresas_doadores_campanha.R"))
     empresas_doadores <- process_socios_empresas_fragmentado(socios_empresas_doadores, FALSE)
   } else {
     empresas_doadores <- fetch_socios_empresas_doadores(socios_empresas_doadores, FALSE)
@@ -151,8 +151,8 @@ processa_empresas_doadores <- function(
 #' @param doadores_folderpath Caminho para o dataframe com dados de doadores de campanhas
 #' @return Dataframe das empresas que possuem sócios com os mesmos nomes e 6 dígitos do cpg/cnpj dos doadores
 filter_socios_empresas_doadores <- function(
-  socios_folderpath = here::here("parlametria/raw_data/empresas/socio.csv.gz"),
-  doadores_folderpath = here::here("parlametria/raw_data/receitas/parlamentares_doadores.csv")) {
+  socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
+  doadores_folderpath = here::here("raw_data/receitas/parlamentares_doadores.csv")) {
   
   library(tidyverse)
   
@@ -186,14 +186,14 @@ filter_socios_empresas_doadores <- function(
 #' socios doaram em campanhas
 #' @return Dataframe com mais dados sobre os deputados, valor doado e se a empresa é exportadora
 process_socios_empresas_doadores <- function(
-  empresas_doadores = readr::read_csv(here::here("parlametria/raw_data/empresas/empresas_doadores_agricolas_raw.csv"),
+  empresas_doadores = readr::read_csv(here::here("raw_data/empresas/empresas_doadores_agricolas_raw.csv"),
                                       col_types = readr::cols(.default = "c")),
   ano = 2018) {
   library(tidyverse)
   library(here)
   
-  source(here("parlametria/crawler/receitas/analyzer_receitas_tse.R"))
-  source(here("parlametria/crawler/empresas/process_empresas_exportadoras.R"))
+  source(here("crawler/receitas/analyzer_receitas_tse.R"))
+  source(here("crawler/empresas/process_empresas_exportadoras.R"))
   
   parlamentares_doacoes <- processa_doacoes_parlamentares_tse(ano) %>% 
     select(id, 

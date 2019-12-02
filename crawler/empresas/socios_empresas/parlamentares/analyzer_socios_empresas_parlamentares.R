@@ -8,7 +8,7 @@
 #' @param casa_origem Casa de origem 
 #' @return Dataframe das empresas que possuem sócios com os mesmos nomes e 6 dígitos do cpg/cnpj dos parlamentares por casa.
 filter_socios_empresas_parlamentares_casa <- function(
-  socios_folderpath = here::here("parlametria/raw_data/empresas/socio.csv.gz"),
+  socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
   parlamentares_folderpath = here::here("crawler/raw_data/parlamentares.csv"),
   casa_origem = "camara") {
   
@@ -53,7 +53,7 @@ filter_socios_empresas_parlamentares_casa <- function(
 #' @param doadores_folderpath Caminho para o dataframe com dados de doadores de campanhas
 #' @return Dataframe das empresas que possuem sócios com os mesmos nomes dos doadores
 filter_empresas_agricolas_doadoras <- function(
-  doadores_folderpath = here::here("parlametria/raw_data/receitas/parlamentares_doadores.csv")) {
+  doadores_folderpath = here::here("raw_data/receitas/parlamentares_doadores.csv")) {
   library(tidyverse)
   
   empresas_doadoras <- read_csv(doadores_folderpath) %>% 
@@ -74,14 +74,14 @@ filter_empresas_agricolas_doadoras <- function(
 #' @return Dataframe com mais dados sobre os sócios, as empresas, e os parlamentares
 process_socios_empresas_parlamentares_casa <- function(
   parlamentares_folderpath = here::here("crawler/raw_data/parlamentares.csv"),
-  socios_folderpath = here::here("parlametria/raw_data/empresas/socio.csv.gz"),
+  socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
   casa_origem = "camara",
   somente_agricolas = F) {
   library(tidyverse)
   library(here)
   
-  source(here("parlametria/crawler/empresas/socios_empresas/parlamentares/fetcher_socios_empresas_parlamentares.R"))
-  source(here::here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here("crawler/empresas/socios_empresas/parlamentares/fetcher_socios_empresas_parlamentares.R"))
+  source(here::here("crawler/empresas/fetcher_empresas.R"))
   
   socios_empresas_parlamentares <- 
     filter_socios_empresas_parlamentares_casa(socios_folderpath, parlamentares_folderpath,
@@ -112,8 +112,8 @@ process_socios_empresas_parlamentares_casa <- function(
 #' @return Dataframe contendo id e CPF dos senadores
 process_cpf_parlamentares_senado <- function(
   parlamentares = readr::read_csv(here::here("crawler/raw_data/parlamentares.csv"), col_types = cols(id = "c")),
-  candidatos_2018_data_path = here::here("parlametria/raw_data/dados_tse/consulta_cand_2018_BRASIL.csv.zip"),
-  candidatos_2014_data_path = here::here("parlametria/raw_data/dados_tse/consulta_cand_2014_BRASIL.csv.zip")) {
+  candidatos_2018_data_path = here::here("raw_data/dados_tse/consulta_cand_2018_BRASIL.csv.zip"),
+  candidatos_2014_data_path = here::here("raw_data/dados_tse/consulta_cand_2014_BRASIL.csv.zip")) {
   library(tidyverse)
   library(here)
   
@@ -156,7 +156,7 @@ process_cpf_parlamentares_senado <- function(
 #' @param somente_agricolas Flag para indicar se deve filtrar as empresas agrícolas ou não
 #' @return Dataframe com mais dados sobre os sócios, as empresas, e os parlamentares
 process_socios_empresas_parlamentares <- function(
-  socios_folderpath = here::here("parlametria/raw_data/empresas/socio.csv.gz"),
+  socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
   parlamentares_folderpath = here::here("crawler/raw_data/parlamentares.csv"),
   somente_agricolas = FALSE
   ) {

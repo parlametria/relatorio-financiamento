@@ -5,11 +5,11 @@
 #' @param somente_empresas Flag para indicar a filtragem de empresas agrícolas ou todas as empresas.
 #' @return Dataframe com informações dos sócios de empresas
 fetch_socios_empresas_doadores <- function(
-  empresas_doadores = readr::read_csv(here::here("parlametria/raw_data/empresas/empresas_doadores.csv")),
+  empresas_doadores = readr::read_csv(here::here("raw_data/empresas/empresas_doadores.csv")),
   somente_agricolas = FALSE) {
   library(tidyverse)
   
-  source(here::here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here::here("crawler/empresas/fetcher_empresas.R"))
   
   empresas_socios <- fetch_empresas(empresas_doadores, somente_agricolas)
 
@@ -31,10 +31,10 @@ fetch_socios_empresas_doadores <- function(
 #' @param empresas_doadores Dataframe com as informações dos doadores 
 #' @return Dataframe com informações das empresas agrícolas
 fetch_empresas_rurais_doadores <- function(
-  empresas_doadores = readr::read_csv(here::here("parlametria/raw_data/empresas/empresas_doadores.csv"))) {
+  empresas_doadores = readr::read_csv(here::here("raw_data/empresas/empresas_doadores.csv"))) {
   library(tidyverse)
   
-  source(here::here("parlametria/crawler/empresas/fetcher_empresas.R"))
+  source(here::here("crawler/empresas/fetcher_empresas.R"))
   
   empresas_socios_agricolas <- 
     fetch_empresas(empresas_doadores, TRUE)

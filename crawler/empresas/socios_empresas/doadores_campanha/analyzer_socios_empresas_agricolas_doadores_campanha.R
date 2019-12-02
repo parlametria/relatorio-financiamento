@@ -4,7 +4,7 @@
 #' @param doadores_folderpath Caminho para o dataframe com dados de doadores de campanhas
 #' @return Dataframe das empresas que possuem sócios com os mesmos nomes dos doadores
 filter_empresas_agricolas_doadoras <- function(
-  doadores_folderpath = here::here("parlametria/raw_data/receitas/deputados_doadores.csv")) {
+  doadores_folderpath = here::here("raw_data/receitas/deputados_doadores.csv")) {
   library(tidyverse)
   
   empresas_doadoras <- read_csv(doadores_folderpath) %>% 
@@ -27,20 +27,20 @@ filter_empresas_agricolas_doadoras <- function(
 #' @example process_socios_empresas_agricolas_por_receita()
 process_socios_empresas_agricolas_doadores <- function(
   ano = 2018,
-  doadores_folderpath = here::here("parlametria/raw_data/receitas/parlamentares_doadores.csv"),
-  socios_folderpath = here::here("parlametria/raw_data/empresas/socio.csv.gz"),
+  doadores_folderpath = here::here("raw_data/receitas/parlamentares_doadores.csv"),
+  socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
   fragmentado = TRUE) {
   library(tidyverse)
   library(here)
   
-  source(here("parlametria/crawler/empresas/socios_empresas/doadores_campanha/fetcher_socios_empresas_doadores_campanha.R"))
-  source(here("parlametria/crawler/empresas/socios_empresas/doadores_campanha/analyzer_socios_empresas_doadores_campanha.R"))
+  source(here("crawler/empresas/socios_empresas/doadores_campanha/fetcher_socios_empresas_doadores_campanha.R"))
+  source(here("crawler/empresas/socios_empresas/doadores_campanha/analyzer_socios_empresas_doadores_campanha.R"))
   
   socios_empresas_doadores <-
     filter_socios_empresas_doadores(socios_folderpath, doadores_folderpath)
   
   if (isTRUE(fragmentado)) {
-    source(here("parlametria/crawler/empresas/socios_empresas/doadores_campanha/paraleliza_fetcher_socios_empresas_doadores_campanha.R"))
+    source(here("crawler/empresas/socios_empresas/doadores_campanha/paraleliza_fetcher_socios_empresas_doadores_campanha.R"))
     socios_empresas_agricolas <- process_socios_empresas_fragmentado(socios_empresas_doadores, TRUE)
   
   } else {

@@ -12,7 +12,7 @@ fetcher_socios_empresas_fragmentado <-
     library(here)
     source(
       here(
-        "parlametria/crawler/empresas/socios_empresas/doadores_campanha/fetcher_socios_empresas_doadores_campanha.R"
+        "crawler/empresas/socios_empresas/doadores_campanha/fetcher_socios_empresas_doadores_campanha.R"
       )
     )
     
@@ -29,13 +29,13 @@ fetcher_socios_empresas_fragmentado <-
     )
     
     # Cria, se não existe, o diretório para armazenar os dataframes intermediários
-    dir.create(file.path(here("parlametria/raw_data/empresas"), "socios_empresas"), showWarnings = FALSE)
+    dir.create(file.path(here("raw_data/empresas"), "socios_empresas"), showWarnings = FALSE)
     
     purrr::map(seq(1:length(reparticoes)), function(x) {
       print(paste0("Baixando batch número ", x))
       df <- fetch_socios_empresas_doadores(reparticoes[[x]], somente_agricolas)
       write_csv(df, paste0(
-        here("parlametria/raw_data/empresas/socios_empresas/"),
+        here("raw_data/empresas/socios_empresas/"),
         "socios_empresas_parte_",
         x,
         ".csv"
@@ -60,7 +60,7 @@ process_socios_empresas_fragmentado <- function(socios_empresas_doadores, soment
   
   datapaths <-
     list.files(
-      here("parlametria/raw_data/empresas/socios_empresas/"),
+      here("raw_data/empresas/socios_empresas/"),
       pattern = "socios_empresas_parte_.*.csv",
       full.names = TRUE
     )
