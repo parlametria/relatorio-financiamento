@@ -8,14 +8,14 @@ processa_parlamentares_socios_atividades_economicas <- function() {
   library(tidyverse)
   library(here)
   
-  source(here("parlametria/processor/empresas/processor_cnaes_empresas.R"))
+  source(here("processor/empresas/processor_cnaes_empresas.R"))
   
-  parlamentares_empresas <- read_csv(here("parlametria/raw_data/empresas/socios_empresas_todos_parlamentares.csv"),
+  parlamentares_empresas <- read_csv(here("raw_data/empresas/socios_empresas_todos_parlamentares.csv"),
                                      col_types = cols(id_parlamentar = "c")) %>% 
     distinct(id_parlamentar, casa, cnpj)
   
   info_empresas <- process_cnaes_empresas(
-    info_empresas_datapath = here::here("parlametria/raw_data/empresas/info_empresas_socios_todos_parlamentares.csv"),
+    info_empresas_datapath = here::here("raw_data/empresas/info_empresas_socios_todos_parlamentares.csv"),
     apenas_cnae_fiscal = TRUE) %>% 
     distinct(cnpj, grupo_atividade_economica)
   
@@ -41,20 +41,20 @@ processa_proporcao_doadores_atividades_economicas <- function() {
   library(here)
   options(scipen = 999)
   
-  source(here("parlametria/processor/empresas/processor_cnaes_empresas.R"))
+  source(here("processor/empresas/processor_cnaes_empresas.R"))
   
-  parlamentares_doacoes <- read_csv(here("parlametria/raw_data/receitas/parlamentares_doadores.csv"), 
+  parlamentares_doacoes <- read_csv(here("raw_data/receitas/parlamentares_doadores.csv"), 
                                     col_types = cols(id = "c")) %>% 
     rename(id_parlamentar = id)
  
-  parlamentares_doadores_empresas <- read_csv(here("parlametria/raw_data/empresas/empresas_doadores_todos_parlamentares.csv"),
+  parlamentares_doadores_empresas <- read_csv(here("raw_data/empresas/empresas_doadores_todos_parlamentares.csv"),
                                      col_types = cols(id_parlamentar = "c", cnpj_empresa = "c", cpf_cnpj_socio = "c")) %>% 
     mutate(cnpj = stringr::str_pad(cnpj_empresa, 14, pad = "0")) %>% 
     select(id_parlamentar, casa = casa_parlamentar, cnpj, cpf_cnpj_socio) %>% 
     distinct(id_parlamentar, casa, cnpj, cpf_cnpj_socio) 
   
   info_empresas <- process_cnaes_empresas(
-    info_empresas_datapath = here::here("parlametria/raw_data/empresas/info_empresas_doadores_todos_parlamentares.csv"),
+    info_empresas_datapath = here::here("raw_data/empresas/info_empresas_doadores_todos_parlamentares.csv"),
     apenas_cnae_fiscal = TRUE) %>% 
     distinct(cnpj, grupo_atividade_economica)
   
@@ -101,7 +101,7 @@ processa_indices_ligacao_atividade_economica <- function() {
   options(scipen = 999)
   
   ## Considera parlamentares em exercício ou não
-  parlamentares <- read_csv(here("crawler/raw_data/parlamentares.csv"), col_types = cols(id = "c"))
+  parlamentares <- read_csv(here("raw_data/parlamentares.csv"), col_types = cols(id = "c"))
   # filter(em_exercicio == 1)
   
   parlamentares_id <- parlamentares %>% 

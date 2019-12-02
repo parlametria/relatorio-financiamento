@@ -4,7 +4,7 @@
 #' @param apenas_cnae_fiscal TRUE se apenas o cnae fiscal das empresas deve ser considerado. FALSE caso contrário.
 #' @return Dataframe com nova coluna contendo o grupo de atividade econômica
 process_cnaes_empresas <- function(
-  info_empresas_datapath = here::here("parlametria/raw_data/empresas/info_empresas_socios_todos_parlamentares.csv"),
+  info_empresas_datapath = here::here("raw_data/empresas/info_empresas_socios_todos_parlamentares.csv"),
   apenas_cnae_fiscal = TRUE) {
   library(tidyverse)
   library(here)
@@ -20,7 +20,7 @@ process_cnaes_empresas <- function(
   }
   
   grupos_cnaes <- 
-    jsonlite::fromJSON(here("parlametria/processor/empresas/constants.json"))$grupos_cnae
+    jsonlite::fromJSON(here("processor/empresas/constants.json"))$grupos_cnae
   
   grupos_cnaes <- grupos_cnaes %>% 
     as.data.frame() %>% 

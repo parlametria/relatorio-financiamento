@@ -6,7 +6,7 @@ process_atividade_economica <- function() {
   library(tidyverse)
   
   grupos_atividade_economica <- 
-    jsonlite::fromJSON(here("parlametria/processor/empresas/constants.json"))$grupos_cnae$nome %>% 
+    jsonlite::fromJSON(here("processor/empresas/constants.json"))$grupos_cnae$nome %>% 
     tibble::enframe(name = NULL) %>% 
     rename(nome = value) %>% 
     arrange(nome) %>% 
@@ -23,8 +23,8 @@ process_atividade_economica <- function() {
 #' @param parlamentares_socios_datapath Caminho para o dataframe com as informações dos parlamentares sócios de empresas.
 #' @return Dataframe com dados processados de empresas
 process_empresas <- function(
-  info_empresas_datapath = here::here("parlametria/raw_data/empresas/info_empresas_socios_todos_parlamentares.csv"),
-  parlamentares_socios_datapath = here::here("parlametria/raw_data/empresas/socios_empresas_todos_parlamentares.csv")) {
+  info_empresas_datapath = here::here("raw_data/empresas/info_empresas_socios_todos_parlamentares.csv"),
+  parlamentares_socios_datapath = here::here("raw_data/empresas/socios_empresas_todos_parlamentares.csv")) {
   library(here)
   library(tidyverse)
   

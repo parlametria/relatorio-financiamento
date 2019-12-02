@@ -1,6 +1,6 @@
 library(tidyverse)
 library(here)
-source(here::here("parlametria/processor/empresas/processor_info_relatorio_fabio.R"))
+source(here::here("processor/empresas/processor_info_relatorio_fabio.R"))
 
 if(!require(optparse)){
   install.packages("optparse")
@@ -13,11 +13,11 @@ message("LEIA O README deste diretório")
 message("Use --help para mais informações\n")
 
 option_list = list(
-  make_option(c("-o", "--out1"), type="character", default=here::here("parlametria/raw_data/empresas/parlamentares_ligacao_atividade_economica.csv"), 
+  make_option(c("-o", "--out1"), type="character", default=here::here("raw_data/empresas/parlamentares_ligacao_atividade_economica.csv"), 
               help="nome do arquivo de saída para o dataframe de ligações econômicas [default= %default]", metavar="character"),
-  make_option(c("-i", "--out2"), type="character", default=here::here("parlametria/raw_data/empresas/parlamentares_socios_empresas.csv"), 
+  make_option(c("-i", "--out2"), type="character", default=here::here("raw_data/empresas/parlamentares_socios_empresas.csv"), 
               help="nome do arquivo de saída para o dataframe de parlamentares sócios de empresas [default= %default]", metavar="character"),
-  make_option(c("-u", "--out3"), type="character", default=here::here("parlametria/raw_data/empresas/doadores_socios_empresas.csv"), 
+  make_option(c("-u", "--out3"), type="character", default=here::here("raw_data/empresas/doadores_socios_empresas.csv"), 
               help="nome do arquivo de saída para o dataframe de doadores sócios de empresas [default= %default]", metavar="character")
 ) 
 

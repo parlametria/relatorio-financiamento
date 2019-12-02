@@ -8,14 +8,14 @@ processa_parlamentares_info_eleicao <- function() {
   library(tidyverse)
   library(here)
   
-  parlamentares <- read_csv(here("crawler/raw_data/parlamentares.csv"), col_types = cols(id = "c")) %>% 
+  parlamentares <- read_csv(here("raw_data/parlamentares.csv"), col_types = cols(id = "c")) %>% 
     filter(em_exercicio == 1) %>% 
     select(id_parlamentar = id, casa, nome_eleitoral, sg_partido, uf)
   
-  parlamentares_doacoes <- read_csv(here("parlametria/raw_data/receitas/parlamentares_doadores.csv"), col_types = cols(id = "c")) %>% 
+  parlamentares_doacoes <- read_csv(here("raw_data/receitas/parlamentares_doadores.csv"), col_types = cols(id = "c")) %>% 
     rename(id_parlamentar = id)
   
-  doacoes_sumario <- read_csv(here("parlametria/raw_data/empresas/parlamentares_ligacao_atividade_economica.csv"),
+  doacoes_sumario <- read_csv(here("raw_data/empresas/parlamentares_ligacao_atividade_economica.csv"),
                               col_types = cols(id_parlamentar = "c"))
   
   doacoes_sumario_soma <- doacoes_sumario %>% 
