@@ -9,7 +9,7 @@
 #' @return Dataframe das empresas que possuem sócios com os mesmos nomes e 6 dígitos do cpg/cnpj dos parlamentares por casa.
 filter_socios_empresas_parlamentares_casa <- function(
   socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
-  parlamentares_folderpath = here::here("crawler/raw_data/parlamentares.csv"),
+  parlamentares_folderpath = here::here("raw_data/parlamentares.csv"),
   casa_origem = "camara") {
   
   library(tidyverse)
@@ -73,7 +73,7 @@ filter_empresas_agricolas_doadoras <- function(
 #' @param somente_agricolas Flag para indicar se deve filtrar as empresas agrícolas ou não
 #' @return Dataframe com mais dados sobre os sócios, as empresas, e os parlamentares
 process_socios_empresas_parlamentares_casa <- function(
-  parlamentares_folderpath = here::here("crawler/raw_data/parlamentares.csv"),
+  parlamentares_folderpath = here::here("raw_data/parlamentares.csv"),
   socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
   casa_origem = "camara",
   somente_agricolas = F) {
@@ -111,7 +111,7 @@ process_socios_empresas_parlamentares_casa <- function(
 #' @param parlamentares Dataframe com dados de parlamentares
 #' @return Dataframe contendo id e CPF dos senadores
 process_cpf_parlamentares_senado <- function(
-  parlamentares = readr::read_csv(here::here("crawler/raw_data/parlamentares.csv"), col_types = cols(id = "c")),
+  parlamentares = readr::read_csv(here::here("raw_data/parlamentares.csv"), col_types = cols(id = "c")),
   candidatos_2018_data_path = here::here("raw_data/dados_tse/consulta_cand_2018_BRASIL.csv.zip"),
   candidatos_2014_data_path = here::here("raw_data/dados_tse/consulta_cand_2014_BRASIL.csv.zip")) {
   library(tidyverse)
@@ -157,7 +157,7 @@ process_cpf_parlamentares_senado <- function(
 #' @return Dataframe com mais dados sobre os sócios, as empresas, e os parlamentares
 process_socios_empresas_parlamentares <- function(
   socios_folderpath = here::here("raw_data/empresas/socio.csv.gz"),
-  parlamentares_folderpath = here::here("crawler/raw_data/parlamentares.csv"),
+  parlamentares_folderpath = here::here("raw_data/parlamentares.csv"),
   somente_agricolas = FALSE
   ) {
   

@@ -8,7 +8,7 @@
 #' @example processa_socios_empresas_doadores()
 processa_socios_empresas_doadores <- function(
   socios_empresas_doadores,
-  parlamentares_datapath = here::here("crawler/raw_data/parlamentares.csv")) {
+  parlamentares_datapath = here::here("raw_data/parlamentares.csv")) {
   
   library(tidyverse)
   source(here::here("crawler/empresas/process_empresas_exportadoras.R"))
