@@ -2,7 +2,7 @@
 
 echo "Downloading data..."
 
-mkdir ../../../raw_data/dados_tse/
+mkdir ../../raw_data/dados_tse/
 cd ../../raw_data/dados_tse/
 
 for ano in 2018; do 
