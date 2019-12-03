@@ -1,2 +1,4 @@
 *.zip
 paraleliza_empresas_doadores.R
+.RData
+.Rhistory
