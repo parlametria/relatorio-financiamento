@@ -6,7 +6,7 @@ A **Open Knowledge Brasil (OKBR)** é uma Organização da Sociedade Civil (OSC)
 
 Web: https://br.okfn.org | Twitter: @okfnbr  | FB fb.com/OpenKnowledgeBrasil |
 
-O **LabAnalytics** é o Laboratório de pesquisa, desenvolvimento e inovação em análise de dados na Universidade Federal de Campina Grande (UFCG)
+O **Laboratório Analytics** é um laboratório de pesquisa, formação e inovação em Ciência de Dados Cívica na Universidade Federal de Campina Grande (UFCG). Desenvolve cursos, pesquisas e projetos de impacto social para avançar o estado da arte no uso de Ciência de Dados, Aprendizagem de Máquina e Visualização de Dados para a cidadania.
 
 FB fb.com/analytics.ufcg/  | github.com/analytics-ufcg  
 
