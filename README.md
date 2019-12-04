@@ -1,4 +1,4 @@
-# parlametria-dados
+# Participação de sócios de empresas no financiamento de campanhas em 2018 - Transparência
 
 Repositório com scripts e dados necessários para a construção do relatório de participação de sócios de empresas no financiamento de campanhas em 2018 do [Parlametria](https://parlametria.org/relatorios).
 
