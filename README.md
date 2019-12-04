@@ -1,7 +1,10 @@
-# parlametria-dados
-Repositório com scripts e dados necessários para a construção dos relatórios do Parlametria
+# Participação de sócios de empresas no financiamento de campanhas em 2018 - Transparência
 
-## Sobre quem faz este projeto
+Repositório com scripts e dados usados na construção dos relatórios do Parlametria. 
+
+O processamento e visualizações é feito em R. Está nos Rmds do diretório `reports`. Os dados são obtidos com os scripts em `crawler`. 
+
+## Quem faz este projeto
 A **Open Knowledge Brasil (OKBR)** é uma Organização da Sociedade Civil (OSC) sem fins lucrativos e apartidária que atua para democratizar o acesso a dados e ampliar a  transparência e a participação política. Sua missão é ampliar o acesso ao conhecimento para resolver problemas sociais e melhorar a vida das pessoas, para que as decisões que moldam nossa sociedade sejam tomadas de forma compartilhada e responsável. A organização faz parte de uma rede internacional que atua em mais de 60 países. 
 
 Web: https://br.okfn.org | Twitter: @okfnbr  | FB fb.com/OpenKnowledgeBrasil |
